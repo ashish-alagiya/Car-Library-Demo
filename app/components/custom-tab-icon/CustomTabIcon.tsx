@@ -2,6 +2,7 @@ import {
   Image,
   ImageSourcePropType,
   StyleSheet,
+  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -43,15 +44,15 @@ const CustomTabIcon: FC<CustomTabIconType> = ({ focused, label, icon }) => {
           style={StyleSheet.flatten([styles.imageStyle, dynamicIconTintColor])}
         />
       </View>
-      <AppText
+      <Text
         adjustsFontSizeToFit
         numberOfLines={1}
         style={StyleSheet.flatten([(styles.labelStyle, labelDynamicColor)])}
       >
         {label}
-      </AppText>
+      </Text>
     </TouchableOpacity>
   );
 };
 
-export default memo(CustomTabIcon);
+export default CustomTabIcon;

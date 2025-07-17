@@ -20,10 +20,8 @@ const TabNav = createBottomTabNavigator();
 const getTabBarOptions = (
   icon: ImageSourcePropType,
   label: string,
-  unmountOnBlur: boolean = false,
 ): BottomTabNavigationOptions => {
   const tabBarOptions: BottomTabNavigationOptions = {
-    unmountOnBlur,
     // eslint-disable-next-line react/no-unstable-nested-components
     tabBarIcon: ({ focused }) => (
       <CustomTabIcon focused={focused} label={label} icon={icon} />

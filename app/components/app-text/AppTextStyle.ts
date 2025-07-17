@@ -4,10 +4,12 @@
 
 import { StyleSheet } from 'react-native';
 import { Colors, moderateScale } from '../../theme';
+import { nunito } from '../../assets';
 
 export const styles = StyleSheet.create({
   fontStyle: {
     fontSize: moderateScale(16),
     color: Colors.black,
+    fontFamily: nunito.Medium,
   },
 });
