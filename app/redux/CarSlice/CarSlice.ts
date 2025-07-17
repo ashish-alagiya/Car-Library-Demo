@@ -1,17 +1,35 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { CarType } from '../../types';
-import { getAllCars } from '../../api/CarApis';
+import {
+  deleteCar,
+  getAllCars,
+  getCarTags,
+  getCarTypes,
+  resetCars,
+} from '../../api/CarApis';
 
 interface CarState {
   cars: CarType[];
   loading: boolean;
+  deleting: boolean;
+  resetting: boolean;
+  tagsLoading: boolean;
+  typesLoading: boolean;
   error: string | null;
+  tags: string[];
+  types: string[];
 }
 
 const initialState: CarState = {
   cars: [],
   loading: false,
+  deleting: false,
+  resetting: false,
+  tagsLoading: false,
+  typesLoading: false,
   error: null,
+  tags: [],
+  types: [],
 };
 
 export const fetchCars = createAsyncThunk(
@@ -22,6 +40,51 @@ export const fetchCars = createAsyncThunk(
       return response;
     } catch (error) {
       return rejectWithValue('Failed to fetch cars');
+    }
+  },
+);
+
+export const fetchCarTags = createAsyncThunk<string[]>(
+  'carList/fetchCarTags',
+  async (_, { rejectWithValue }) => {
+    try {
+      return await getCarTags();
+    } catch (err: any) {
+      return rejectWithValue(err.message);
+    }
+  },
+);
+
+export const fetchCarTypes = createAsyncThunk<string[]>(
+  'carList/fetchCarTypes',
+  async (_, { rejectWithValue }) => {
+    try {
+      return await getCarTypes();
+    } catch (err: any) {
+      return rejectWithValue(err.message);
+    }
+  },
+);
+
+export const deleteCarById = createAsyncThunk<number, number>(
+  'carList/deleteCar',
+  async (id, { rejectWithValue }) => {
+    try {
+      await deleteCar(id);
+      return id;
+    } catch (err: any) {
+      return rejectWithValue(err.message);
+    }
+  },
+);
+
+export const resetCarDatabase = createAsyncThunk(
+  'carList/resetCars',
+  async (_, { rejectWithValue }) => {
+    try {
+      await resetCars();
+    } catch (err: any) {
+      return rejectWithValue(err.message);
     }
   },
 );
@@ -41,6 +104,7 @@ const carSlice = createSlice({
   },
   extraReducers: builder => {
     builder
+      // Fetch cars
       .addCase(fetchCars.pending, state => {
         state.loading = true;
         state.error = null;
@@ -54,6 +118,61 @@ const carSlice = createSlice({
       )
       .addCase(fetchCars.rejected, (state, action) => {
         state.loading = false;
+        state.error = action.payload as string;
+      })
+
+      // Fetch car tags
+      .addCase(fetchCarTags.pending, state => {
+        state.tagsLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchCarTags.fulfilled, (state, action) => {
+        state.tagsLoading = false;
+        state.tags = action.payload;
+      })
+      .addCase(fetchCarTags.rejected, (state, action) => {
+        state.tagsLoading = false;
+        state.error = action.payload as string;
+      })
+
+      // Fetch car types
+      .addCase(fetchCarTypes.pending, state => {
+        state.typesLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchCarTypes.fulfilled, (state, action) => {
+        state.typesLoading = false;
+        state.types = action.payload;
+      })
+      .addCase(fetchCarTypes.rejected, (state, action) => {
+        state.typesLoading = false;
+        state.error = action.payload as string;
+      })
+
+      // Delete car
+      .addCase(deleteCarById.pending, state => {
+        state.deleting = true;
+        state.error = null;
+      })
+      .addCase(deleteCarById.fulfilled, (state, action) => {
+        state.deleting = false;
+        state.cars = state.cars.filter(car => car.id !== action.payload);
+      })
+      .addCase(deleteCarById.rejected, (state, action) => {
+        state.deleting = false;
+        state.error = action.payload as string;
+      })
+
+      // Reset DB
+      .addCase(resetCarDatabase.pending, state => {
+        state.resetting = true;
+        state.error = null;
+      })
+      .addCase(resetCarDatabase.fulfilled, state => {
+        state.resetting = false;
+      })
+      .addCase(resetCarDatabase.rejected, (state, action) => {
+        state.resetting = false;
         state.error = action.payload as string;
       });
   },
