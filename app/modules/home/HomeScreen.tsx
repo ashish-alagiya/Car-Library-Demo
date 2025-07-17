@@ -1,13 +1,18 @@
-import { View } from 'react-native'
-import React from 'react'
-import { AppText } from '../../components'
+import { View } from 'react-native';
+import React from 'react';
+import { ActivityLoader, AppText } from '../../components';
+import useHomeScreen from './useHomeScreen';
 
 const HomeScreen = () => {
+  const { loading, cars, error } = useHomeScreen();
   return (
-    <View>
-      <AppText>HomeScreen</AppText>
-    </View>
-  )
-}
+    <React.Fragment>
+      <ActivityLoader isVisible={loading} />
+      <View>
+        <AppText>HomeScreen</AppText>
+      </View>
+    </React.Fragment>
+  );
+};
 
-export default HomeScreen
+export default HomeScreen;

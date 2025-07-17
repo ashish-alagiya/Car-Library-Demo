@@ -1,16 +1,7 @@
+import { CarType } from '../types';
 import { axiosInstance } from './apiInstance';
 
-interface GetCarsRequest {}
-
-export const getAllCars = async (
-  email: string,
-  password: string,
-): Promise<GetCarsRequest> => {
-  const requestBody: GetCarsRequest = {};
-  try {
-    const { data } = await axiosInstance.post<any>('URL', requestBody);
-    return data;
-  } catch (error: any) {
-    throw error;
-  }
+export const getAllCars = async (): Promise<CarType[]> => {
+  const response = await axiosInstance.get('/cars');
+  return response.data;
 };
