@@ -6,5 +6,9 @@
 */
 
 export default {
-  home: 'TabNavigation',
+  root: 'RootNavigation',
+  home: 'Home',
+  carLibrary: 'CarLibrary',
+  services: 'Services',
+  profile: 'Profile',
 };

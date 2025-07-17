@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Routes } from '../../constants';
 import {
   createStackNavigator,
@@ -6,10 +6,11 @@ import {
 } from '@react-navigation/stack';
 
 //! Below Imports Are Visualization of Custom Components UI */
-import { HomeScreen } from '../../modules';
+import TabNavigation from '../tab-navigation/TabNavigation';
+import { SafeAreaContainer } from '../../components';
 
 const Stack = createStackNavigator();
-const RootStack = () => {
+export const AppStack = () => {
   const screenOption: StackNavigationOptions = {
     headerShown: false,
   };
@@ -17,11 +18,19 @@ const RootStack = () => {
   return (
     <Stack.Navigator
       screenOptions={screenOption}
-      initialRouteName={Routes.home}
+      initialRouteName={Routes.root}
     >
       {/* Define the screens to be included in the stack navigator */}
-      <Stack.Screen name={Routes.home} component={HomeScreen} />
+      <Stack.Screen name={Routes.root} component={TabNavigation} />
     </Stack.Navigator>
+  );
+};
+
+const RootStack = () => {
+  return (
+    <SafeAreaContainer>
+      <AppStack />
+    </SafeAreaContainer>
   );
 };
 

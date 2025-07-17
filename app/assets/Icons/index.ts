@@ -3,4 +3,8 @@
 
 export default {
   searchIcon: require('./search.png'),
+  carLibraryTab: require('./carLibraryTab.png'),
+  homeTab: require('./homeTab.png'),
+  profileTab: require('./profileTab.png'),
+  serviceTab: require('./serviceTab.png'),
 };
