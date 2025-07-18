@@ -9,22 +9,31 @@ import {
 } from 'react-native';
 import { useCarDetails } from './useCarDetails';
 import { styles } from './CarDetailsStyle';
-import { CarDetailsProps } from '../../types';
 import moment from 'moment';
-import { ActivityLoader } from '../../components';
+import { ActivityLoader, PopUpModal } from '../../components';
 import { Icons } from '../../assets';
 
-const CarDetails: React.FC<CarDetailsProps> = ({ route, navigation }) => {
-  const { car, loading } = useCarDetails(route.params?.carId);
+const CarDetails: React.FC = () => {
+  const { car, loading, onDeletePress, showDeleteModal, navigation } =
+    useCarDetails();
 
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity
-        onPress={() => navigation.goBack()}
-        style={styles.closeButton}
-      >
-        <Image source={Icons.cross}/>
-      </TouchableOpacity>
+      <View style={styles.headerView}>
+        <TouchableOpacity onPress={onDeletePress} style={styles.deleteIconView}>
+          <Image
+            source={Icons.deleteIcon}
+            style={styles.deleteIcon}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.closeButton}
+        >
+          <Image source={Icons.cross} style={styles.closeIcon} />
+        </TouchableOpacity>
+      </View>
       <ActivityLoader isVisible={loading} />
       <ScrollView>
         <Text style={styles.title}>{car?.name}</Text>
@@ -57,6 +66,12 @@ const CarDetails: React.FC<CarDetailsProps> = ({ route, navigation }) => {
           Last updated: {moment(car?.createdAt).format('MMM DD, YYYY')}
         </Text>
       </ScrollView>
+      <PopUpModal
+        visible={showDeleteModal}
+        carName={car?.name ?? ''}
+        onCancel={onDeletePress}
+        onDelete={onDeletePress}
+      />
     </SafeAreaView>
   );
 };

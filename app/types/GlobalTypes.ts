@@ -92,7 +92,7 @@ export interface InputFieldProps {
   onDropdownPress?: () => void;
 }
 
-type RootStackParamList = {
+export type RootStackParamList = {
   CarDetails: { carId: string };
   AddNewCar: undefined;
 };

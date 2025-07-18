@@ -13,8 +13,12 @@ export const styles = StyleSheet.create({
     paddingHorizontal: horizontalScale(24),
     paddingTop: verticalScale(16),
   },
+  headerView: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    gap: moderateScale(10),
+  },
   closeButton: {
-    alignSelf: 'flex-end',
     padding: 8,
   },
   title: {
@@ -80,5 +84,17 @@ export const styles = StyleSheet.create({
   },
   specificationView: {
     flexDirection: 'row',
+  },
+  deleteIconView: {
+    alignItems: 'center',
+    marginBottom: verticalScale(25),
+  },
+  deleteIcon: {
+    height: verticalScale(30),
+    width: verticalScale(30),
+  },
+  closeIcon: {
+    height: verticalScale(20),
+    width: verticalScale(20),
   },
 });
