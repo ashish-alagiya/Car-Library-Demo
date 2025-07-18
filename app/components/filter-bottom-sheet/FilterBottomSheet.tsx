@@ -10,6 +10,7 @@ import { Image, Pressable, View, Animated, ScrollView } from 'react-native';
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetBackdropProps,
+  BottomSheetScrollView,
   BottomSheetView,
 } from '@gorhom/bottom-sheet';
 import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
@@ -18,7 +19,7 @@ import { styles } from './FilterBottomSheetStyle';
 import FilterChip from '../filter-chip/FilterChip';
 import { Icons } from '../../assets';
 import CommonButton from '../common-button/CommonButton';
-import { Colors } from '../../theme';
+import { Colors, verticalScale } from '../../theme';
 import { AppDispatch, RootState } from '../../redux/Store';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCarTags } from '../../redux';
@@ -115,88 +116,87 @@ const FilterBottomSheet = forwardRef<
       enableDynamicSizing={false}
       backdropComponent={renderBackdrop}
     >
-      <BottomSheetView style={styles.bottomSheet}>
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-          <View style={styles.horizontalRow}>
-            <AppText style={styles.filterText}>Filter By</AppText>
-            <Pressable onPress={handleResetPress}>
-              <View style={styles.rowContainer}>
-                <Image
-                  source={Icons.resetIcon}
-                  style={styles.resetIconStyle}
-                  resizeMode="contain"
-                />
-                <AppText>Reset</AppText>
-              </View>
-            </Pressable>
-          </View>
-          <View style={styles.horizontalRow}>
-            <AppText style={styles.sectionHeader}>CAR TYPE</AppText>
-            <Pressable
-              onPress={() => setShowCarType(prev => !prev)}
-              hitSlop={20}
-            >
-              <Animated.Image
-                source={Icons.arrowUp}
+      <BottomSheetScrollView
+        style={styles.bottomSheet}
+        contentContainerStyle={{ paddingBottom: verticalScale(20) }}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.horizontalRow}>
+          <AppText style={styles.filterText}>Filter By</AppText>
+          <Pressable onPress={handleResetPress}>
+            <View style={styles.rowContainer}>
+              <Image
+                source={Icons.resetIcon}
+                style={styles.resetIconStyle}
                 resizeMode="contain"
-                style={[
-                  styles.arrowUpStyle,
-                  {
-                    transform: [{ rotate: showCarType ? '0deg' : '180deg' }],
-                  },
-                ]}
               />
-            </Pressable>
-          </View>
-          {showCarType && (
-            <View style={styles.chipContainer}>
-              {carTypeOptions.map(option => (
-                <FilterChip
-                  key={option}
-                  label={option}
-                  selected={selectedCarType === option}
-                  onPress={() => toggleCarType(option)}
-                />
-              ))}
+              <AppText>Reset</AppText>
             </View>
-          )}
+          </Pressable>
+        </View>
+        <View style={styles.horizontalRow}>
+          <AppText style={styles.sectionHeader}>CAR TYPE</AppText>
+          <Pressable onPress={() => setShowCarType(prev => !prev)} hitSlop={20}>
+            <Animated.Image
+              source={Icons.arrowUp}
+              resizeMode="contain"
+              style={[
+                styles.arrowUpStyle,
+                {
+                  transform: [{ rotate: showCarType ? '0deg' : '180deg' }],
+                },
+              ]}
+            />
+          </Pressable>
+        </View>
+        {showCarType && (
+          <View style={styles.chipContainer}>
+            {carTypeOptions.map(option => (
+              <FilterChip
+                key={option}
+                label={option}
+                selected={selectedCarType === option}
+                onPress={() => toggleCarType(option)}
+              />
+            ))}
+          </View>
+        )}
 
-          <View style={styles.bottomLine} />
-          <View style={styles.horizontalRow}>
-            <AppText style={styles.sectionHeader}>SPECIFICATIONS</AppText>
-            <Pressable onPress={() => setShowSpecs(prev => !prev)} hitSlop={20}>
-              <Animated.Image
-                source={Icons.arrowUp}
-                resizeMode="contain"
-                style={[
-                  styles.arrowUpStyle,
-                  {
-                    transform: [{ rotate: showSpecs ? '0deg' : '180deg' }],
-                  },
-                ]}
+        <View style={styles.bottomLine} />
+        <View style={styles.horizontalRow}>
+          <AppText style={styles.sectionHeader}>SPECIFICATIONS</AppText>
+          <Pressable onPress={() => setShowSpecs(prev => !prev)} hitSlop={20}>
+            <Animated.Image
+              source={Icons.arrowUp}
+              resizeMode="contain"
+              style={[
+                styles.arrowUpStyle,
+                {
+                  transform: [{ rotate: showSpecs ? '0deg' : '180deg' }],
+                },
+              ]}
+            />
+          </Pressable>
+        </View>
+        {showSpecs && (
+          <View style={styles.chipContainer}>
+            {tags.map(spec => (
+              <FilterChip
+                key={spec}
+                label={spec}
+                selected={selectedSpecifications.includes(spec)}
+                onPress={() => toggleSpecification(spec)}
               />
-            </Pressable>
+            ))}
           </View>
-          {showSpecs && (
-            <View style={styles.chipContainer}>
-              {tags.map(spec => (
-                <FilterChip
-                  key={spec}
-                  label={spec}
-                  selected={selectedSpecifications.includes(spec)}
-                  onPress={() => toggleSpecification(spec)}
-                />
-              ))}
-            </View>
-          )}
-          <CommonButton
-            text="Apply"
-            backgroundColor={Colors.primary100}
-            style={styles.applyBtn}
-            onPress={handleApplyPress}
-          />
-        </ScrollView>
-      </BottomSheetView>
+        )}
+        <CommonButton
+          text="Apply"
+          backgroundColor={Colors.primary100}
+          style={styles.applyBtn}
+          onPress={handleApplyPress}
+        />
+      </BottomSheetScrollView>
     </BottomSheet>
   );
 });

@@ -31,7 +31,6 @@ export const styles = StyleSheet.create({
   },
   bottomSheet: {
     padding: moderateScale(20),
-    flex:1,
   },
   filterText: {
     fontSize: moderateScale(24),
