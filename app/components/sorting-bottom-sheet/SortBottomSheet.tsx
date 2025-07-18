@@ -1,4 +1,4 @@
-import React, { useMemo, forwardRef, useCallback, useState } from 'react';
+import React, { useMemo, forwardRef, useCallback, useState, useRef, useImperativeHandle } from 'react';
 import { Pressable, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import BottomSheet, {
   BottomSheetBackdrop,
@@ -38,13 +38,24 @@ const SortBottomSheet = forwardRef<
   { onSortSelect: (option: SortOption) => void }
 >((props, ref) => {
   const { onSortSelect } = props;
+  const bottomSheetRef = useRef<BottomSheet>(null);
   const [selectedOption, setSelectedOption] = useState<SortOption | null>(null);
+
+  // Expose all required BottomSheetMethods to parent via ref
+  useImperativeHandle(ref, () => ({
+    snapToIndex: (index: number) => bottomSheetRef.current?.snapToIndex(index) as void,
+    snapToPosition: (position: number | string) => bottomSheetRef.current?.snapToPosition(position) as void,
+    expand: () => bottomSheetRef.current?.expand() as void,
+    collapse: () => bottomSheetRef.current?.collapse() as void,
+    close: () => bottomSheetRef.current?.close() as void,
+    forceClose: () => bottomSheetRef.current?.forceClose() as void,
+  }));
 
   const handleSortSelect = useCallback(
     (option: SortOption) => {
       setSelectedOption(option);
       onSortSelect(option);
-      ref?.current?.close();
+      bottomSheetRef.current?.close();
     },
     [onSortSelect],
   );
@@ -61,7 +72,7 @@ const SortBottomSheet = forwardRef<
 
   return (
     <BottomSheet
-      ref={ref}
+      ref={bottomSheetRef}
       index={-1}
       enablePanDownToClose
       snapPoints={snapPoints}

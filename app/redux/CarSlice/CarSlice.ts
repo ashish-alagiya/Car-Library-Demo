@@ -101,6 +101,11 @@ const carSlice = createSlice({
           currentType === 'automatic' ? 'manual' : 'automatic';
       }
     },
+    setFilteredCars: (state, action: PayloadAction<CarType[]>) => {
+      state.cars = action.payload;
+      state.loading = false;
+      state.error = null;
+    },
   },
   extraReducers: builder => {
     builder
@@ -178,5 +183,5 @@ const carSlice = createSlice({
   },
 });
 
-export const { toggleCarType } = carSlice.actions;
+export const { toggleCarType, setFilteredCars } = carSlice.actions;
 export const carSliceReducer = carSlice.reducer;

@@ -29,7 +29,9 @@ const CarLibraryScreen = () => {
     setSearch,
     sortSheetRef,
     handleSortingBsPress,
-    handleSortSelect
+    handleSortSelect,
+    applyFilters,
+    resetFilters,
   } = useCarLibrary();
 
   return (
@@ -83,7 +85,11 @@ const CarLibraryScreen = () => {
           renderItem={({ item }) => <CarCard car={item} />}
         />
       )}
-      <FilterBottomSheet ref={sheetRef} />
+      <FilterBottomSheet 
+        ref={sheetRef} 
+        onApplyFilters={applyFilters}
+        onResetFilters={resetFilters}
+      />
       <SortBottomSheet ref={sortSheetRef} onSortSelect={handleSortSelect} />
     </SafeAreaView>
   );

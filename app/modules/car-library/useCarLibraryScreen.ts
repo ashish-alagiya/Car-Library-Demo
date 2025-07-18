@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCars } from '../../redux';
+import { setFilteredCars } from '../../redux/CarSlice';
 import { AppDispatch, RootState } from '../../redux/Store';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { useNavigation } from '@react-navigation/native';
@@ -17,34 +18,48 @@ const useCarLibrary = () => {
   const [search, setSearch] = useState<string>('');
   const [sortBy, setSortBy] = useState<string>('');
   const [sortOrder, setSortOrder] = useState<string>('');
+  const [carType, setCarType] = useState<string>('');
+  const [tags, setTags] = useState<string>('');
 
   const { cars, loading, error } = useSelector(
     (state: RootState) => state.carsList,
   ) as { cars: CarType[]; loading: boolean; error: string | null };
 
+  const fetchCarsWithFilters = useCallback(async () => {
+    try {
+      const params: Record<string, string> = {};
+      if (search) params['search'] = search;
+      if (sortBy) params['sortBy'] = sortBy;
+      if (sortOrder) params['sortOrder'] = sortOrder;
+      if (carType) params['carType'] = carType.toLowerCase();
+      if (tags) params['tags'] = tags;
+
+      console.log('Fetching cars with params:', params);
+      const response = await getFilteredCars(params);
+      console.log('Received cars response:', response);
+      dispatch(setFilteredCars(response));
+    } catch (error) {
+      console.error('Error fetching filtered cars:', error);
+    }
+  }, [search, sortBy, sortOrder, carType, tags, dispatch]);
+
   useEffect(() => {
-    const fetchSortedCars = async () => {
-      try {
-        console.log('Fetching cars with params:', {
-          search,
-          sortBy,
-          sortOrder,
-        });
-        const params: Record<string, string> = {};
-        if (search) params['search'] = search;
-        if (sortBy) params['sortBy'] = sortBy;
-        if (sortOrder) params['sortOrder'] = sortOrder;
+    fetchCarsWithFilters();
+  }, [fetchCarsWithFilters]);
 
-        const response = await getFilteredCars(params);
-        console.log('Received cars response:', response);
-        dispatch(fetchCars(response));
-      } catch (error) {
-        console.error('Error fetching sorted cars:', error);
-      }
-    };
+  const applyFilters = useCallback((selectedCarType: string | null, selectedSpecs: string[]) => {
+    setCarType(selectedCarType || '');
+    setTags(selectedSpecs.join(','));
+  }, []);
 
-    fetchSortedCars();
-  }, [search, sortBy, sortOrder, dispatch]);
+  const resetFilters = useCallback(() => {
+    setCarType('');
+    setTags('');
+    // Reset to default sort as well
+    setSortBy('');
+    setSortOrder('');
+    dispatch(fetchCars());
+  }, [dispatch]);
 
   const handleClosePress = () => {
     sheetRef.current?.close();
@@ -90,13 +105,15 @@ const useCarLibrary = () => {
     filteredCars: cars.filter(car =>
       car.name.toLowerCase().includes(search.toLowerCase()),
     ),
-    handleRefresh,
+    handleRefresh: fetchCarsWithFilters,
     handlePress,
     search,
     setSearch,
     sortSheetRef,
     handleSortingBsPress,
     handleSortSelect,
+    applyFilters,
+    resetFilters,
   };
 };
 export default useCarLibrary;
