@@ -16,6 +16,7 @@ const useCarLibrary = () => {
   const sortSheetRef = useRef<BottomSheetMethods>(null);
   const navigation = useNavigation<AddNewCarNavigationProp>();
   const [search, setSearch] = useState<string>('');
+  const searchDebounceRef = useRef<NodeJS.Timeout | null>(null);
   const [sortBy, setSortBy] = useState<string>('');
   const [sortOrder, setSortOrder] = useState<string>('');
   const [carType, setCarType] = useState<string>('');
@@ -34,9 +35,7 @@ const useCarLibrary = () => {
       if (carType) params['carType'] = carType.toLowerCase();
       if (tags) params['tags'] = tags;
 
-      console.log('Fetching cars with params:', params);
       const response = await getFilteredCars(params);
-      console.log('Received cars response:', response);
       dispatch(setFilteredCars(response));
     } catch (error) {
       console.error('Error fetching filtered cars:', error);
@@ -44,18 +43,30 @@ const useCarLibrary = () => {
   }, [search, sortBy, sortOrder, carType, tags, dispatch]);
 
   useEffect(() => {
-    fetchCarsWithFilters();
-  }, [fetchCarsWithFilters]);
+    if (searchDebounceRef.current) {
+      clearTimeout(searchDebounceRef.current);
+    }
+    searchDebounceRef.current = setTimeout(() => {
+      fetchCarsWithFilters();
+    }, 300);
+    return () => {
+      if (searchDebounceRef.current) {
+        clearTimeout(searchDebounceRef.current);
+      }
+    };
+  }, [search, sortBy, sortOrder, carType, tags, fetchCarsWithFilters]);
 
-  const applyFilters = useCallback((selectedCarType: string | null, selectedSpecs: string[]) => {
-    setCarType(selectedCarType || '');
-    setTags(selectedSpecs.join(','));
-  }, []);
+  const applyFilters = useCallback(
+    (selectedCarType: string | null, selectedSpecs: string[]) => {
+      setCarType(selectedCarType || '');
+      setTags(selectedSpecs.join(','));
+    },
+    [],
+  );
 
   const resetFilters = useCallback(() => {
     setCarType('');
     setTags('');
-    // Reset to default sort as well
     setSortBy('');
     setSortOrder('');
     dispatch(fetchCars());

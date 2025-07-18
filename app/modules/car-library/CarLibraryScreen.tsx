@@ -48,7 +48,6 @@ const CarLibraryScreen = () => {
 
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [displaySearch, setDisplaySearch] = useState('');
-  const searchTimeoutRef = useRef<NodeJS.Timeout>();
   const searchAnimation = useRef(new Animated.Value(0)).current;
 
   const handleSearchFocus = useCallback(() => {
@@ -75,21 +74,14 @@ const CarLibraryScreen = () => {
 
   const handleSearchChange = (text: string) => {
     setDisplaySearch(text);
-
-    if (searchTimeoutRef.current) {
-      clearTimeout(searchTimeoutRef.current);
-    }
-
-    searchTimeoutRef.current = setTimeout(() => {
-      setSearchQuery(text);
-    }, 300);
+    setSearchQuery(text); // Triggers debounce in the hook
   };
 
   const handleSearchClear = useCallback(() => {
     setDisplaySearch('');
     setSearchQuery('');
     Keyboard.dismiss();
-  }, []);
+  }, [setSearchQuery]);
 
   const handleCancelPress = useCallback(() => {
     handleSearchClear();
