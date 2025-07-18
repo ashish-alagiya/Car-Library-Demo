@@ -62,6 +62,10 @@ export interface Car {
   fuelType?: string;
   mileage?: string;
   lastUpdated?: string;
+  createdAt:string
+  imageUrl:string
+  carType:string
+  tags:string[]
 }
 export interface CarDetailsProps {
   route: { params?: { carId?: string } };

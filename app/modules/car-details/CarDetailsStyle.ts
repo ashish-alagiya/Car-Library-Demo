@@ -1,48 +1,21 @@
 import { StyleSheet } from 'react-native';
-import { horizontalScale, verticalScale } from '../../theme';
+import {
+  Colors,
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '../../theme';
 
 export const styles = StyleSheet.create({
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  errorContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  errorText: {
-    fontSize: 16,
-    color: 'red',
-    textAlign: 'center',
-    marginBottom: 20,
-  },
-  retryButton: {
-    backgroundColor: '#2196F3',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 5,
-  },
-  retryButtonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-  },
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: Colors.white,
     paddingHorizontal: horizontalScale(24),
     paddingTop: verticalScale(16),
   },
   closeButton: {
     alignSelf: 'flex-end',
     padding: 8,
-  },
-  closeButtonText: {
-    fontSize: 24,
-    color: '#999',
-    fontWeight: '300',
   },
   title: {
     fontSize: 28,
@@ -56,7 +29,7 @@ export const styles = StyleSheet.create({
     marginBottom: verticalScale(16),
   },
   transmissionBadge: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: Colors.manualText,
     paddingHorizontal: horizontalScale(16),
     paddingVertical: verticalScale(6),
     borderRadius: 16,
@@ -64,7 +37,7 @@ export const styles = StyleSheet.create({
     marginBottom: verticalScale(24),
   },
   transmissionText: {
-    color: '#FFFFFF',
+    color: Colors.white,
     fontSize: 14,
     fontWeight: '500',
   },
@@ -75,36 +48,37 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: verticalScale(8),
-    color: '#000',
+    color: Colors.black,
   },
   description: {
     fontSize: 14,
     lineHeight: 20,
-    color: '#333333',
-  },
-  specsContainer: {
-    marginTop: verticalScale(8),
-  },
-  specRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: verticalScale(8),
-  },
-  specPill: {
-    backgroundColor: '#F0F0F0',
-    paddingHorizontal: horizontalScale(16),
-    paddingVertical: verticalScale(10),
-    borderRadius: 24,
-    marginBottom: verticalScale(8),
-  },
-  specText: {
-    fontSize: 14,
-    color: '#333',
+    color: Colors.black,
   },
   lastUpdated: {
     fontSize: 12,
-    color: '#666666',
+    color: Colors.gray,
     marginTop: verticalScale(8),
     marginBottom: verticalScale(24),
+  },
+  devider: {
+    borderBottomWidth: 1,
+    borderColor: Colors.bordercolor,
+    marginBottom: verticalScale(18),
+  },
+  text: {
+    fontSize: 14,
+    color: Colors.black,
+  },
+  specificationBox: {
+    borderWidth: 1,
+    margin: moderateScale(12),
+    borderRadius: moderateScale(6),
+    borderColor: Colors.primary100,
+    paddingVertical: verticalScale(8),
+    paddingHorizontal: horizontalScale(14),
+  },
+  specificationView: {
+    flexDirection: 'row',
   },
 });

@@ -6,14 +6,16 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ScrollView,
-  ActivityIndicator,
 } from 'react-native';
 import { useCarDetails } from './useCarDetails';
 import { styles } from './CarDetailsStyle';
 import { CarDetailsProps } from '../../types';
+import moment from 'moment';
+import { ActivityLoader } from '../../components';
+import { Icons } from '../../assets';
 
 const CarDetails: React.FC<CarDetailsProps> = ({ route, navigation }) => {
-  const { car, loading, error } = useCarDetails(route.params?.carId);
+  const { car, loading } = useCarDetails(route.params?.carId);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -21,101 +23,40 @@ const CarDetails: React.FC<CarDetailsProps> = ({ route, navigation }) => {
         onPress={() => navigation.goBack()}
         style={styles.closeButton}
       >
-        <Text style={styles.closeButtonText}>✕</Text>
+        <Image source={Icons.cross}/>
       </TouchableOpacity>
-
-      {loading ? (
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#0000ff" />
+      <ActivityLoader isVisible={loading} />
+      <ScrollView>
+        <Text style={styles.title}>{car?.name}</Text>
+        <Image
+          source={{ uri: car?.imageUrl }}
+          style={styles.carImage}
+          resizeMode="cover"
+        />
+        <View style={styles.transmissionBadge}>
+          <Text style={styles.transmissionText}>{car?.carType}</Text>
         </View>
-      ) : error ? (
-        <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>{error}</Text>
-          <TouchableOpacity
-            style={styles.retryButton}
-            onPress={() => navigation.goBack()}
-          >
-            <Text style={styles.retryButtonText}>Go Back</Text>
-          </TouchableOpacity>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>DESCRIPTION</Text>
+          <Text style={styles.description}>{car?.description}</Text>
         </View>
-      ) : car ? (
-        <ScrollView>
-          <Text style={styles.title}>{car.name}</Text>
 
-          <Image
-            source={{ uri: car.image }}
-            style={styles.carImage}
-            resizeMode="cover"
-          />
-
-          <View style={styles.transmissionBadge}>
-            <Text style={styles.transmissionText}>{car.transmission}</Text>
-          </View>
-
-          {car.description ? (
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>DESCRIPTION</Text>
-              <Text style={styles.description}>{car.description}</Text>
-            </View>
-          ) : null}
-
-          {car.engine || car.displacement || car.fuelType || car.mileage ? (
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>SPECIFICATIONS</Text>
-
-              <View style={styles.specsContainer}>
-                {car.engine ? (
-                  <View style={styles.specPill}>
-                    <Text style={styles.specText}>Engine: {car.engine}</Text>
-                  </View>
-                ) : null}
-
-                {car.displacement ? (
-                  <View style={styles.specPill}>
-                    <Text style={styles.specText}>
-                      Displacement: {car.displacement}
-                    </Text>
-                  </View>
-                ) : null}
-
-                <View style={styles.specRow}>
-                  {car.fuelType ? (
-                    <View style={styles.specPill}>
-                      <Text style={styles.specText}>
-                        Fuel Type: {car.fuelType}
-                      </Text>
-                    </View>
-                  ) : null}
-
-                  {car.mileage ? (
-                    <View style={styles.specPill}>
-                      <Text style={styles.specText}>
-                        Mileage (ARAI): {car.mileage}
-                      </Text>
-                    </View>
-                  ) : null}
-                </View>
+        <View style={styles.devider} />
+        <Text style={styles.sectionTitle}>SPECIFICATIONS</Text>
+        <View style={styles.specificationView}>
+          {car?.tags.map(item => {
+            return (
+              <View style={styles.specificationBox}>
+                <Text style={styles.text}>{item}</Text>
               </View>
-            </View>
-          ) : null}
-
-          {car.lastUpdated ? (
-            <Text style={styles.lastUpdated}>
-              Last updated: {car.lastUpdated}
-            </Text>
-          ) : null}
-        </ScrollView>
-      ) : (
-        <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>Car not found</Text>
-          <TouchableOpacity
-            style={styles.retryButton}
-            onPress={() => navigation.goBack()}
-          >
-            <Text style={styles.retryButtonText}>Go Back</Text>
-          </TouchableOpacity>
+            );
+          })}
         </View>
-      )}
+
+        <Text style={styles.lastUpdated}>
+          Last updated: {moment(car?.createdAt).format('MMM DD, YYYY')}
+        </Text>
+      </ScrollView>
     </SafeAreaView>
   );
 };

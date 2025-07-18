@@ -20,6 +20,11 @@ export const getFilteredCars = async (params: Record<string, any>) => {
   return response.data;
 };
 
+export const getCarDetails = async (carId: string) => {
+  const response = await axiosInstance.get(`/cars/${carId}`);
+  return response.data;
+};
+
 //Get Car Detail
 export const getCarById = async (id: number) => {
   const response = await axiosInstance.get(`/cars/${id}`);
