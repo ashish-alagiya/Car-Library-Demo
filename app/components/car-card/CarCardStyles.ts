@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import {
   Colors,
   horizontalScale,
@@ -7,27 +7,27 @@ import {
 } from '../../theme';
 import { nunito } from '../../assets';
 
+const { width: screenWidth } = Dimensions.get('window');
+const horizontalPadding = moderateScale(15);
+const spacingBetweenColumns = moderateScale(10);
+const totalHorizontalSpacing = horizontalPadding * 2 + spacingBetweenColumns;
+const cardWidth = (screenWidth - totalHorizontalSpacing) / 2;
+
 export const styles = StyleSheet.create({
   container: {
-    //alignItems: 'center',
-    flex: 1,
-    paddingHorizontal: horizontalScale(15),
-   // width: '48%',
-    marginBottom: verticalScale(10),
+    width: cardWidth,
   },
   image: {
-    //flex:1,
-    backgroundColor:'#ccc',
-    borderRadius: 10,
-    width: horizontalScale(158.3),
+    backgroundColor: '#ccc',
+    borderRadius: moderateScale(10),
+    width: '100%',
     height: verticalScale(106),
   },
   name: {
-    paddingHorizontal:horizontalScale(10),
+    paddingHorizontal: horizontalScale(10),
     position: 'absolute',
     alignSelf: 'flex-start',
     bottom: verticalScale(10),
-    left: horizontalScale(15),
     color: Colors.white,
     fontFamily: nunito.Regular,
     fontSize: moderateScale(14),
@@ -35,15 +35,15 @@ export const styles = StyleSheet.create({
   badge: {
     position: 'absolute',
     top: verticalScale(10),
-    right: horizontalScale(25),
+    right: horizontalScale(11),
     paddingHorizontal: horizontalScale(8),
-
     paddingVertical: verticalScale(4),
-    borderRadius: 6,
+    borderRadius: moderateScale(6),
   },
   badgeText: {
-    fontSize: moderateScale(10),
+    fontSize: moderateScale(12),
     fontFamily: nunito.Regular,
+    color: Colors.black,
   },
   manual: {
     backgroundColor: Colors.manual,

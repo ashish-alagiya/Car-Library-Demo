@@ -11,8 +11,7 @@ import {
 } from 'react-native';
 import { InputFieldProps } from '../../types';
 
-import {styles} from './InputStyles'
-
+import { styles } from './InputStyles';
 
 export const InputField: React.FC<InputFieldProps> = ({
   value,
@@ -40,7 +39,7 @@ export const InputField: React.FC<InputFieldProps> = ({
       <View style={[styles.inputContainer, hasError && styles.errorBorder]}>
         {leftIcon && (
           <TouchableOpacity onPress={onLeftIconPress} style={styles.iconLeft}>
-       <Image source={leftIcon} style={iconStyle} />
+            <Image source={leftIcon} style={iconStyle} />
           </TouchableOpacity>
         )}
 
@@ -50,11 +49,9 @@ export const InputField: React.FC<InputFieldProps> = ({
           onPress={isDropdown ? onDropdownPress : undefined}
         >
           <TextInput
-            // style={styles.input}
             placeholder={placeholder}
             multiline={multiline}
             numberOfLines={numberOfLines}
-         
             value={value}
             onChangeText={onChangeText}
             editable={!isDropdown}
@@ -65,15 +62,16 @@ export const InputField: React.FC<InputFieldProps> = ({
 
         {rightIcon && (
           <TouchableOpacity onPress={onRightIconPress} style={styles.iconRight}>
-           <Image source={rightIcon} style={iconStyle} resizeMode='contain' />
+            <Image source={rightIcon} style={iconStyle} resizeMode="contain" />
           </TouchableOpacity>
         )}
       </View>
 
       {hasError && (
-        <Text style={styles.errorText}>{errorText || 'This field is required.'}</Text>
+        <Text style={styles.errorText}>
+          {errorText || 'This field is required.'}
+        </Text>
       )}
     </View>
   );
 };
-

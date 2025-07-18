@@ -1,44 +1,43 @@
 // Define styles for the login screen component.
 
 import { StyleSheet } from 'react-native';
-import { Colors, horizontalScale, verticalScale } from '../../theme';
-
+import {
+  Colors,
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '../../theme';
 
 export const styles = StyleSheet.create({
   container: {
-    //flex: 1,
-    paddingHorizontal: horizontalScale(24),
-    backgroundColor: '#f5daf8ff',
+    flex: 1,
+    backgroundColor: Colors.background,
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 10,
+    marginVertical: verticalScale(12),
   },
   searchContainer: {
     flex: 1,
   },
   inputField: {
-   marginBottom:0,
-   elevation:1,
-   shadowOpacity:1,
-   shadowColor:'#f5cef9ff',
- shadowOffset: { width: 5, height: 0 },
-   
+    marginBottom: 0,
+    elevation: 1,
+    shadowOpacity: 1,
+    shadowColor: Colors.background,
+    shadowOffset: { width: 5, height: 0 },
   },
 
   loadingContainer: {
- alignSelf:'center',
+    alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-   // backgroundColor: '#f5daf8ff',
   },
   errorContainer: {
-    //flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: horizontalScale(20),
-   // backgroundColor: '#f5daf8ff',
   },
   errorText: {
     fontSize: 16,
@@ -57,7 +56,16 @@ export const styles = StyleSheet.create({
     fontSize: 16,
   },
   icon: {
-    height:verticalScale(20),
-    width:verticalScale(20)
-  }
+    height: moderateScale(24),
+    width: moderateScale(24),
+  },
+  newCarBtnContainer: {
+    alignItems: 'flex-end',
+    marginTop: 10,
+  },
+  contentContainer: {
+    paddingTop: moderateScale(4),
+    paddingHorizontal: moderateScale(15),
+    paddingBottom: moderateScale(20),
+  },
 });

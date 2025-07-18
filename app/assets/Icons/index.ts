@@ -7,4 +7,7 @@ export default {
   homeTab: require('./homeTab.png'),
   profileTab: require('./profileTab.png'),
   serviceTab: require('./serviceTab.png'),
+  filterIcon: require('./filter.png'),
+  sortIcon: require('./sort.png'),
+  applyIcon: require('./apply.png'),
 };
