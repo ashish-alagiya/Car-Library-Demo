@@ -10,4 +10,9 @@ export default {
   filterIcon: require('./filter.png'),
   sortIcon: require('./sort.png'),
   applyIcon: require('./apply.png'),
+  arrowUp: require('./arrowUp.png'),
+  resetIcon: require('./reset.png'),
+  deleteIcon: require('./delete.png'),
+  sortingUpIcon: require('./sortingUp.png'),
+  sortingDownIcon: require('./sortingDown.png'),
 };

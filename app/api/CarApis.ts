@@ -6,11 +6,9 @@ export const getAllCars = async (): Promise<CarType[]> => {
   try {
     const response = await axiosInstance.get('/cars');
     return response.data;
-  } 
-  catch (error) {
+  } catch (error) {
     console.error('Error fetching cars:', error);
     throw error;
-
   }
 };
 

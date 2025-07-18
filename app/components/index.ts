@@ -2,3 +2,7 @@ export { default as AppText } from './app-text/AppText';
 export { default as ActivityLoader } from './activity-loader/ActivityLoader';
 export { default as SafeAreaContainer } from './safe-area-container/SafeAreaContainer';
 export { default as CustomTabIcon } from './custom-tab-icon/CustomTabIcon';
+export { default as FilterBottomSheet } from './filter-bottom-sheet/FilterBottomSheet';
+export { default as FilterChip } from './filter-chip/FilterChip';
+export { default as PopUpModal } from './popup-modal/PopUpModal';
+export { default as SortBottomSheet } from './sorting-bottom-sheet/SortBottomSheet';

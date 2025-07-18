@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#ccc',
     borderRadius: moderateScale(10),
     width: '100%',
-    height: verticalScale(106),
+    height: verticalScale(110),
   },
   name: {
     paddingHorizontal: horizontalScale(10),

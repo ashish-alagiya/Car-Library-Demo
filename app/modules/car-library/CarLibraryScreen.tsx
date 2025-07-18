@@ -1,52 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   View,
   FlatList,
-  StyleSheet,
   SafeAreaView,
-  Image,
   TouchableOpacity,
-  ActivityIndicator,
   Text,
 } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
 import { CarCard } from '../../components/car-card/CarCard';
 import { InputField } from '../../components/input_container/Input';
 import { styles } from './CarLibraryScreenStyle';
 import { Icons } from '../../assets';
-import { fetchCars } from '../../redux/CarSlice';
-import { RootState, AppDispatch } from '../../redux/Store';
 import CommonButton from '../../components/common-button/CommonButton';
 import { Colors, moderateScale } from '../../theme';
-import { useNavigation } from '@react-navigation/native';
-import { AddNewCarNavigationProp } from '../../types';
+import useCarLibrary from './useCarLibraryScreen';
+import { ActivityLoader, FilterBottomSheet, SortBottomSheet } from '../../components';
 
 const CarLibraryScreen = () => {
-  const [search, setSearch] = useState<string>('');
-  const dispatch = useDispatch<AppDispatch>();
-  const { cars, loading, error } = useSelector(
-    (state: RootState) => state.carsList,
-  );
+  const {
+    loading,
+    error,
+    sheetRef,
+    handleSnapPress,
+    handleClosePress,
+    filteredCars,
+    handleRefresh,
+    handlePress,
+    search,
+    setSearch,
+    sortSheetRef,
+    handleSortingBsPress,
+    handleSortSelect
+  } = useCarLibrary();
 
-  const navigation = useNavigation<AddNewCarNavigationProp>();
-  useEffect(() => {
-    dispatch(fetchCars());
-  }, [dispatch]);
-
-  const filteredCars = cars.filter(car =>
-    car.name.toLowerCase().includes(search.toLowerCase()),
-  );
-
-  const handleSort = () => {};
-  const handleFilter = () => {};
-  const handleRefresh = () => {
-    dispatch(fetchCars());
-  };
-  const handlePress = () => {
-    navigation.navigate('AddNewCar');
-  };
   return (
     <SafeAreaView style={[styles.container, { flex: 1 }]}>
+      <ActivityLoader isVisible={loading} />
       <View style={styles.newCarBtnContainer}>
         <CommonButton
           text="+ New Car"
@@ -66,25 +54,15 @@ const CarLibraryScreen = () => {
             iconStyle={styles.icon}
           />
         </View>
-        <CommonButton
-          icon={Icons.sortIcon}
-          onPress={() => console.log('Sort')}
-        />
-        <CommonButton
-          icon={Icons.filterIcon}
-          onPress={() => console.log('Filter')}
-        />
+        <CommonButton icon={Icons.sortIcon} onPress={handleSortingBsPress} />
+        <CommonButton icon={Icons.filterIcon} onPress={handleSnapPress} />
         <CommonButton
           icon={Icons.applyIcon}
           onPress={() => console.log('Apply')}
         />
       </View>
 
-      {loading ? (
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#0000ff" />
-        </View>
-      ) : error ? (
+      {error ? (
         <View style={styles.errorContainer}>
           <Text style={styles.errorText}>{error}</Text>
           <TouchableOpacity style={styles.retryButton} onPress={handleRefresh}>
@@ -105,6 +83,8 @@ const CarLibraryScreen = () => {
           renderItem={({ item }) => <CarCard car={item} />}
         />
       )}
+      <FilterBottomSheet ref={sheetRef} />
+      <SortBottomSheet ref={sortSheetRef} onSortSelect={handleSortSelect} />
     </SafeAreaView>
   );
 };
