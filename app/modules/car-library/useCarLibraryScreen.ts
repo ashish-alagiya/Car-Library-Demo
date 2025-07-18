@@ -4,7 +4,7 @@ import { fetchCars } from '../../redux';
 import { setFilteredCars } from '../../redux/CarSlice';
 import { AppDispatch, RootState } from '../../redux/Store';
 import BottomSheet from '@gorhom/bottom-sheet';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { AddNewCarNavigationProp } from '../../types';
 import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 import { getFilteredCars } from '../../api/CarApis';
@@ -27,19 +27,15 @@ const useCarLibrary = () => {
   ) as { cars: CarType[]; loading: boolean; error: string | null };
 
   const fetchCarsWithFilters = useCallback(async () => {
-    try {
-      const params: Record<string, string> = {};
-      if (search) params['search'] = search;
-      if (sortBy) params['sortBy'] = sortBy;
-      if (sortOrder) params['sortOrder'] = sortOrder;
-      if (carType) params['carType'] = carType.toLowerCase();
-      if (tags) params['tags'] = tags;
+    const params: Record<string, string> = {};
+    if (search) params['search'] = search;
+    if (sortBy) params['sortBy'] = sortBy;
+    if (sortOrder) params['sortOrder'] = sortOrder;
+    if (carType) params['carType'] = carType.toLowerCase();
+    if (tags) params['tags'] = tags;
 
-      const response = await getFilteredCars(params);
-      dispatch(setFilteredCars(response));
-    } catch (error) {
-      console.error('Error fetching filtered cars:', error);
-    }
+    const response = await getFilteredCars(params);
+    dispatch(setFilteredCars(response));
   }, [search, sortBy, sortOrder, carType, tags, dispatch]);
 
   useEffect(() => {
@@ -84,27 +80,22 @@ const useCarLibrary = () => {
     sortSheetRef.current?.snapToIndex(1);
   };
 
-  const handleRefresh = () => {
-    dispatch(fetchCars());
-  };
-
   const handlePress = () => {
     navigation.navigate('AddNewCar');
   };
 
   const handleSortSelect = (option: { sortBy: string; sortOrder: string }) => {
-    console.log('Sort option selected:', option);
     setSortBy(option.sortBy);
     setSortOrder(option.sortOrder);
   };
 
-  useEffect(() => {
-    dispatch(fetchCars());
-  }, [dispatch]);
+  const isFocus = useIsFocused();
 
-  const filteredCars = cars.filter(car =>
-    car.name.toLowerCase().includes(search.toLowerCase()),
-  );
+  useEffect(() => {
+    if (isFocus) {
+      dispatch(fetchCars());
+    }
+  }, [isFocus]);
 
   return {
     loading,

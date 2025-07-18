@@ -5,14 +5,12 @@ import {
   getAllCars,
   getCarTags,
   getCarTypes,
-  resetCars,
 } from '../../api/CarApis';
 
 interface CarState {
   cars: CarType[];
   loading: boolean;
   deleting: boolean;
-  resetting: boolean;
   tagsLoading: boolean;
   typesLoading: boolean;
   error: string | null;
@@ -24,7 +22,6 @@ const initialState: CarState = {
   cars: [],
   loading: false,
   deleting: false,
-  resetting: false,
   tagsLoading: false,
   typesLoading: false,
   error: null,
@@ -72,17 +69,6 @@ export const deleteCarById = createAsyncThunk<number, number>(
     try {
       await deleteCar(id);
       return id;
-    } catch (err: any) {
-      return rejectWithValue(err.message);
-    }
-  },
-);
-
-export const resetCarDatabase = createAsyncThunk(
-  'carList/resetCars',
-  async (_, { rejectWithValue }) => {
-    try {
-      await resetCars();
     } catch (err: any) {
       return rejectWithValue(err.message);
     }
@@ -167,19 +153,6 @@ const carSlice = createSlice({
         state.deleting = false;
         state.error = action.payload as string;
       })
-
-      // Reset DB
-      .addCase(resetCarDatabase.pending, state => {
-        state.resetting = true;
-        state.error = null;
-      })
-      .addCase(resetCarDatabase.fulfilled, state => {
-        state.resetting = false;
-      })
-      .addCase(resetCarDatabase.rejected, (state, action) => {
-        state.resetting = false;
-        state.error = action.payload as string;
-      });
   },
 });
 

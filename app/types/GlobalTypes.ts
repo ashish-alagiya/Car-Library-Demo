@@ -1,13 +1,19 @@
 // Define TypeScript interfaces for global types used throughout the application.
-import { StackNavigationProp } from "@react-navigation/stack";
-import { ImageSourcePropType, ImageStyle, KeyboardTypeOptions, ViewStyle } from "react-native";
+import { StackNavigationProp } from '@react-navigation/stack';
+import {
+  ImageSourcePropType,
+  ImageStyle,
+  KeyboardTypeOptions,
+  ViewStyle,
+} from 'react-native';
 
 export interface CarType {
   id: number;
   imageUrl: string;
   name: string;
   description: string;
-  carType: 'automatic' | 'manual';
+  carType: string;
+  tags?: string[];
 }
 
 // export type Car = {
@@ -36,7 +42,6 @@ export type CreateCarPayload = {
   tags: string[];
 };
 
-export type UpdateCarPayload = Partial<CreateCarPayload> & { id: number };
 export interface Props {
   value: string;
   onChange: (text: string) => void;
@@ -56,13 +61,17 @@ export interface Car {
   fuelType?: string;
   mileage?: string;
   lastUpdated?: string;
+  createdAt: string;
+  imageUrl: string;
+  carType: string;
+  tags: string[];
 }
 export interface CarDetailsProps {
   route: { params?: { carId?: string } };
   navigation: { goBack: () => void };
 }
 export interface InputFieldProps {
-  value: string;
+  value: string | any;
   onChangeText?: (text: string) => void;
   placeholder?: string;
   isRequired?: boolean;
@@ -75,16 +84,23 @@ export interface InputFieldProps {
   iconStyle?: ImageStyle;
   keyboardType?: KeyboardTypeOptions;
   containerStyle?: ViewStyle;
-  multiline?:boolean;
-  numberOfLines?:any
+  editable?: boolean;
+  multiline?: boolean;
+  numberOfLines?: any;
   isDropdown?: boolean;
   onDropdownPress?: () => void;
 }
 
-type RootStackParamList = {
+export type RootStackParamList = {
   CarDetails: { carId: string };
-  AddNewCar:undefined
+  AddNewCar: undefined;
 };
 
-export type CarDetailsNavigationProp = StackNavigationProp<RootStackParamList,'CarDetails'>
-export type AddNewCarNavigationProp = StackNavigationProp<RootStackParamList,'AddNewCar'>
+export type CarDetailsNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'CarDetails'
+>;
+export type AddNewCarNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'AddNewCar'
+>;

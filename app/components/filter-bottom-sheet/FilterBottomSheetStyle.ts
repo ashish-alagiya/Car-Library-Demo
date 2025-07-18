@@ -50,7 +50,7 @@ export const styles = StyleSheet.create({
   },
   bottomLine: {
     height: 1,
-    backgroundColor: '#eee',
+    backgroundColor: Colors.white,
     marginVertical: verticalScale(12),
   },
   horizontalRow: {

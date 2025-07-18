@@ -2,19 +2,16 @@ import React, { useRef, useState, useCallback } from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   Image,
   TextInput,
   TouchableOpacity,
   Keyboard,
   TouchableWithoutFeedback,
-  SafeAreaView,
   FlatList,
   Animated,
   Easing,
 } from 'react-native';
 import { CarCard } from '../../components/car-card/CarCard';
-import { InputField } from '../../components/input_container/Input';
 import { styles } from './CarLibraryScreenStyle';
 import { Icons } from '../../assets';
 import { CarType } from '../../types';
@@ -28,7 +25,7 @@ import {
 } from '../../components';
 import EmptyState from '../../components/empty-state/EmptyState';
 
-const CarLibraryScreen = () => {
+const CarLibraryScreen: React.FC = () => {
   const {
     loading,
     error,
@@ -106,7 +103,7 @@ const CarLibraryScreen = () => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <SafeAreaView style={[styles.container, { flex: 1 }]}>
+      <View style={styles.container}>
         <ActivityLoader isVisible={loading} />
 
         {!isSearchFocused && (
@@ -184,11 +181,7 @@ const CarLibraryScreen = () => {
               onPress={handleSnapPress}
               style={styles.actionButton}
             />
-            <CommonButton
-              icon={Icons.applyIcon}
-              onPress={() => console.log('Apply')}
-              style={styles.actionButton}
-            />
+            <CommonButton icon={Icons.applyIcon} style={styles.actionButton} />
           </Animated.View>
         </View>
 
@@ -225,7 +218,7 @@ const CarLibraryScreen = () => {
           onResetFilters={resetFilters}
         />
         <SortBottomSheet ref={sortSheetRef} onSortSelect={handleSortSelect} />
-      </SafeAreaView>
+      </View>
     </TouchableWithoutFeedback>
   );
 };

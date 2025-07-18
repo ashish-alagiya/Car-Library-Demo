@@ -1,18 +1,23 @@
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React from 'react';
-import { ActivityLoader, AppText } from '../../components';
-import useHomeScreen from './useHomeScreen';
+import { AppText } from '../../components';
+import { Colors } from '../../theme';
 
-const HomeScreen = () => {
-  const { loading, cars, error } = useHomeScreen();
+const HomeScreen: React.FC = () => {
   return (
-    <React.Fragment>
-      <ActivityLoader isVisible={loading} />
-      <View>
-        <AppText>HomeScreen</AppText>
-      </View>
-    </React.Fragment>
+    <View style={styles.rootContainerStyle}>
+      <AppText>Home Screen</AppText>
+    </View>
   );
 };
 
 export default HomeScreen;
+
+export const styles = StyleSheet.create({
+  rootContainerStyle: {
+    flex: 1,
+    backgroundColor: Colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

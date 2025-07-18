@@ -7,16 +7,18 @@ export const getAllCars = async (): Promise<CarType[]> => {
     const response = await axiosInstance.get('/cars');
     return response.data;
   } catch (error) {
-    console.error('Error fetching cars:', error);
     throw error;
   }
 };
 
-
-
 //Get Cars with Filters
 export const getFilteredCars = async (params: Record<string, any>) => {
   const response = await axiosInstance.get('/cars', { params });
+  return response.data;
+};
+
+export const getCarDetails = async (carId: string) => {
+  const response = await axiosInstance.get(`/cars/${carId}`);
   return response.data;
 };
 
@@ -44,18 +46,8 @@ export const getCarTags = async () => {
   return response.data as string[];
 };
 
-//Update Car
-export const updateCar = async (id: number, data: Partial<CarType>) => {
-  const response = await axiosInstance.patch(`/cars/${id}`, data);
-  return response.data;
-};
-
 //Delete Car
 export const deleteCar = async (id: number) => {
-  await axiosInstance.delete(`/cars/${id}`);
-};
-
-//Reset DB
-export const resetCars = async () => {
-  await axiosInstance.post(`/cars/reset`);
+  const response = await axiosInstance.delete(`/cars/${id}`);
+  return response;
 };

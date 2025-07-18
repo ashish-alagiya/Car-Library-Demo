@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     width: cardWidth,
   },
   image: {
-    backgroundColor: '#ccc',
+    backgroundColor: Colors.darkGray,
     borderRadius: moderateScale(10),
     width: '100%',
     height: verticalScale(110),

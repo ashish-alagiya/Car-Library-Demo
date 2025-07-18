@@ -16,4 +16,12 @@ export default {
   sortingUpIcon: require('./sortingUp.png'),
   sortingDownIcon: require('./sortingDown.png'),
   crossIcon: require('./cross.png'),
+  dropdownIcon:require('./arrow_down.png'),
+  dropupIcon:require('./arrow_up.png'),
+  checkbox_unnmarked:require('./checkbox_unmarked.png'),
+  checkbox_marked:require('./checkbox_marked.png'),
+  radio_unmarked:require('./radio_unmarked.png'),
+  radio_marked:require('./radio_marked.png'),
+  cross:require('./cross.png'),
+  backArrow: require('./backArrow.png'),
 };

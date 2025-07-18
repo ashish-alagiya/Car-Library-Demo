@@ -1,16 +1,6 @@
 import React from 'react';
-import {
-  View,
-  TextInput,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  ViewStyle,
-  KeyboardTypeOptions,
-  Image,
-} from 'react-native';
+import { View, TextInput, Text, TouchableOpacity, Image } from 'react-native';
 import { InputFieldProps } from '../../types';
-
 import { styles } from './InputStyles';
 
 export const InputField: React.FC<InputFieldProps> = ({
@@ -35,7 +25,14 @@ export const InputField: React.FC<InputFieldProps> = ({
   const hasError = isRequired && showError && value.trim() === '';
 
   return (
-    <View style={[styles.wrapper, containerStyle]}>
+    <View style={[styles.wrapper]}>
+      <View style={styles.errorContainer}>
+        {hasError && (
+          <Text style={styles.errorText}>
+            {errorText || 'This field is required.'}
+          </Text>
+        )}
+      </View>
       <View style={[styles.inputContainer, hasError && styles.errorBorder]}>
         {leftIcon && (
           <TouchableOpacity onPress={onLeftIconPress} style={styles.iconLeft}>
@@ -49,6 +46,7 @@ export const InputField: React.FC<InputFieldProps> = ({
           onPress={isDropdown ? onDropdownPress : undefined}
         >
           <TextInput
+            style={containerStyle}
             placeholder={placeholder}
             multiline={multiline}
             numberOfLines={numberOfLines}
@@ -66,12 +64,6 @@ export const InputField: React.FC<InputFieldProps> = ({
           </TouchableOpacity>
         )}
       </View>
-
-      {hasError && (
-        <Text style={styles.errorText}>
-          {errorText || 'This field is required.'}
-        </Text>
-      )}
     </View>
   );
 };
