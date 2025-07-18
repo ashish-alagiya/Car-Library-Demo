@@ -3,9 +3,18 @@ import { axiosInstance } from './apiInstance';
 
 //Get All Cars
 export const getAllCars = async (): Promise<CarType[]> => {
-  const response = await axiosInstance.get('/cars');
-  return response.data;
+  try {
+    const response = await axiosInstance.get('/cars');
+    return response.data;
+  } 
+  catch (error) {
+    console.error('Error fetching cars:', error);
+    throw error;
+
+  }
 };
+
+
 
 //Get Cars with Filters
 export const getFilteredCars = async (params: Record<string, any>) => {
