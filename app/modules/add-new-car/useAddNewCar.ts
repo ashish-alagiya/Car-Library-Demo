@@ -84,7 +84,6 @@ export const useAddNewCar = () => {
       !selectedCarTags?.length ||
       !imageUrl.trim()
     ) {
-      Alert.alert('Validation Error', 'Please fill all required fields.');
       return;
     }
 
@@ -94,23 +93,24 @@ export const useAddNewCar = () => {
         name: carName.trim(),
         description: description.trim(),
         carType: selectedCarType.toLowerCase(),
-        tags: selectedCarTags,
+        tags: Array.isArray(selectedCarTags)
+          ? selectedCarTags
+          : [selectedCarTags],
         imageUrl: imageUrl.trim(),
       };
 
-      console.log('Submitting to API:', newCar);
-      console.log('Final car payload:', JSON.stringify(newCar, null, 2));
-
-      const result = await createCar(newCar);
-
-      console.log('API Response:', result);
+      await createCar(newCar);
 
       Alert.alert('Success', 'Car added successfully!', [
-        { text: 'OK', onPress: () => navigation.goBack() },
+        {
+          text: 'OK',
+          onPress: () => {
+            navigation.goBack();
+          },
+        },
       ]);
-    } catch (error: any) {
+    } catch (error) {
       console.error('Add car error:', error);
-      //Alert.alert('Error', 'Failed to add car. Please try again.');
     } finally {
       setIsLoading(false);
     }

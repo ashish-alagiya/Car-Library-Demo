@@ -10,7 +10,7 @@ import { nunito } from '../../assets';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.background,
   },
   scrollContent: {
     paddingHorizontal: horizontalScale(24),
@@ -30,15 +30,14 @@ export const styles = StyleSheet.create({
     fontFamily: nunito.Regular,
   },
   required: {
-    color: 'red',
+    color: Colors.error,
   },
   input: {
     marginBottom: 0,
   },
   descriptionContainer: {
-    height: 150, // more than InputField height
+    height: 150,
     padding: 10,
-    backgroundColor: '#fff', // optional
     borderRadius: 8,
   },
 
@@ -64,15 +63,9 @@ export const styles = StyleSheet.create({
     fontSize: moderateScale(16),
     fontWeight: 'bold',
   },
-  icon: { height: verticalScale(14), width: horizontalScale(18.9) },
-  modalOverlay: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.4)',
-  },
 
   dropdown: {
+    backgroundColor: Colors.white,
     height: verticalScale(56),
     borderColor: Colors.bordercolor,
     borderWidth: 1,
@@ -81,30 +74,38 @@ export const styles = StyleSheet.create({
   },
 
   placeholderStyle: {
+    fontFamily: nunito.Regular,
     fontSize: moderateScale(16),
-    color: '#999',
+    color: Colors.bordercolor,
+  },
+  descriptionBox: {
+    height: verticalScale(150),
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: Colors.bordercolor,
+    paddingHorizontal: horizontalScale(24),
+    paddingVertical: verticalScale(12),
+    backgroundColor: Colors.white,
+    fontSize: 16,
+    fontFamily: nunito.SemiBold,
   },
 
   selectedTextStyle: {
     fontSize: moderateScale(16),
-  },
-
-  inputSearchStyle: {
-    height: 40,
-    fontSize: 16,
+    fontFamily: nunito.Regular,
   },
 
   errorText: {
-    color: 'red',
-    fontSize: moderateScale(10),
+    color: Colors.error,
+    fontSize: moderateScale(12),
     marginTop: 4,
+    fontFamily: nunito.Regular,
   },
   dropdownListContainer: {
     borderRadius: 10,
     paddingVertical: verticalScale(8),
-    backgroundColor: '#f9f9f9',
+    backgroundColor: Colors.white,
     elevation: 5,
-
     shadowOpacity: 0.1,
     shadowRadius: 8,
   },
@@ -135,7 +136,7 @@ export const styles = StyleSheet.create({
   slectedOptionsContainer: {
     borderWidth: 0,
     borderRadius: 6,
-    backgroundColor: '#e8d9fdff',
+    backgroundColor: Colors.background,
     paddingHorizontal: horizontalScale(15),
   },
   selectedOptionText: {
@@ -143,8 +144,12 @@ export const styles = StyleSheet.create({
     fontFamily: nunito.Regular,
     fontSize: moderateScale(14),
   },
-  placeholdertextcolor: { color: Colors.bordercolor },
+
   errorBorder: {
-    borderColor: 'red',
+    borderColor: Colors.error,
+  },
+  carTypeError: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

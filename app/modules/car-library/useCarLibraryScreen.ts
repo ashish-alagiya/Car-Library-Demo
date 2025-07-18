@@ -4,7 +4,7 @@ import { fetchCars } from '../../redux';
 import { setFilteredCars } from '../../redux/CarSlice';
 import { AppDispatch, RootState } from '../../redux/Store';
 import BottomSheet from '@gorhom/bottom-sheet';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { AddNewCarNavigationProp } from '../../types';
 import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 import { getFilteredCars } from '../../api/CarApis';
@@ -84,10 +84,6 @@ const useCarLibrary = () => {
     sortSheetRef.current?.snapToIndex(1);
   };
 
-  const handleRefresh = () => {
-    dispatch(fetchCars());
-  };
-
   const handlePress = () => {
     navigation.navigate('AddNewCar');
   };
@@ -98,13 +94,13 @@ const useCarLibrary = () => {
     setSortOrder(option.sortOrder);
   };
 
-  useEffect(() => {
-    dispatch(fetchCars());
-  }, [dispatch]);
+  const isFocus = useIsFocused();
 
-  const filteredCars = cars.filter(car =>
-    car.name.toLowerCase().includes(search.toLowerCase()),
-  );
+  useEffect(() => {
+    if (isFocus) {
+      dispatch(fetchCars());
+    }
+  }, [isFocus]);
 
   return {
     loading,

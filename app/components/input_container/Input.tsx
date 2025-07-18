@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, TextInput, Text, TouchableOpacity, Image } from 'react-native';
 import { InputFieldProps } from '../../types';
-
 import { styles } from './InputStyles';
 
 export const InputField: React.FC<InputFieldProps> = ({
@@ -27,6 +26,13 @@ export const InputField: React.FC<InputFieldProps> = ({
 
   return (
     <View style={[styles.wrapper]}>
+      <View style={styles.errorContainer}>
+        {hasError && (
+          <Text style={styles.errorText}>
+            {errorText || 'This field is required.'}
+          </Text>
+        )}
+      </View>
       <View style={[styles.inputContainer, hasError && styles.errorBorder]}>
         {leftIcon && (
           <TouchableOpacity onPress={onLeftIconPress} style={styles.iconLeft}>
@@ -58,13 +64,6 @@ export const InputField: React.FC<InputFieldProps> = ({
           </TouchableOpacity>
         )}
       </View>
-
-      {hasError && (
-        <Text style={styles.errorText}>
-          {errorText || 'This field is required.'}
-        </Text>
-      )}
-      {/* <Text style={styles.errorText}>Mandatory</Text> */}
     </View>
   );
 };

@@ -31,10 +31,14 @@ export const styles = StyleSheet.create({
   },
   errorBorder: {
     borderWidth: 1,
-    borderColor: '#f71414ff',
+    borderColor: Colors.error,
   },
   errorText: {
-    color: '#f71414ff',
+    color: Colors.error,
     fontSize: moderateScale(12),
+  },
+  errorContainer: {
+    alignItems: 'flex-end',
+    bottom: verticalScale(22),
   },
 });

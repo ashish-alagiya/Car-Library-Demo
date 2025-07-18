@@ -37,5 +37,5 @@ export const Colors: Record<ColorType, string> = {
   gray: '#666666',
   lightGray: '#F5F5F5',
   darkGray: '#757575',
-  error: '#DF3145',
+  error: '#fd0000ff',
 };

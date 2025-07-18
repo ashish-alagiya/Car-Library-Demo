@@ -6,6 +6,7 @@ import {
   ScrollView,
   Image,
   ActivityIndicator,
+  TextInput,
 } from 'react-native';
 import { InputField } from '../../components/input_container/Input';
 import CommonButton from '../../components/common-button/CommonButton';
@@ -62,7 +63,7 @@ const AddNewCar = () => {
             <Text style={styles.charCount}>{description.length}/250 char</Text>
           </View>
           <View>
-            <InputField
+            <TextInput
               value={description}
               onChangeText={text => {
                 if (text.length <= 250) {
@@ -72,25 +73,29 @@ const AddNewCar = () => {
               placeholder="Enter here"
               multiline
               numberOfLines={6}
-              //containerStyle={{height:150}}
+              style={styles.descriptionBox}
             />
           </View>
         </View>
 
         <View style={styles.inputGroup}>
-          <Text style={styles.label}>
-            Car type<Text style={styles.required}>*</Text>
-          </Text>
+          <View style={styles.carTypeError}>
+            <Text style={styles.label}>
+              Car type<Text style={styles.required}>*</Text>
+            </Text>
+            {showErrors && !selectedCarType && (
+              <Text style={styles.errorText}>Mandatory</Text>
+            )}
+          </View>
 
           <Dropdown
             style={[
               styles.dropdown,
-              showErrors && !selectedCarType ? styles.errorBorder : null,
+              showErrors && !selectedCarType && styles.errorBorder,
             ]}
             placeholderStyle={styles.placeholderStyle}
             selectedTextStyle={styles.selectedTextStyle}
             data={carTypeDropdownData}
-            maxHeight={300}
             labelField="label"
             valueField="value"
             placeholder="Select"
@@ -115,16 +120,17 @@ const AddNewCar = () => {
               </View>
             )}
           />
-
-          {showErrors && !selectedCarType && (
-            <Text style={styles.errorText}>Mandatory</Text>
-          )}
         </View>
 
         <View style={styles.inputGroup}>
-          <Text style={styles.label}>
-            Specifications<Text style={styles.required}>*</Text>
-          </Text>
+          <View style={styles.carTypeError}>
+            <Text style={styles.label}>
+              Specifications<Text style={styles.required}>*</Text>
+            </Text>
+            {showErrors && selectedCarTags.length === 0 && (
+              <Text style={styles.errorText}>Mandatory</Text>
+            )}
+          </View>
 
           <MultiSelect
             data={carTagsDropdownData}
@@ -159,9 +165,6 @@ const AddNewCar = () => {
               </View>
             )}
           />
-          {showErrors && !selectedCarTags && (
-            <Text style={styles.errorText}>Mandatory</Text>
-          )}
         </View>
 
         <View style={styles.inputGroup}>
@@ -174,7 +177,7 @@ const AddNewCar = () => {
             placeholder="Enter here"
             isRequired={true}
             showError={showErrors && !imageUrl}
-            errorText="Image URL is required"
+            errorText="Mandatory!"
             containerStyle={styles.input}
           />
         </View>
