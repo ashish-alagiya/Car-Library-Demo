@@ -5,10 +5,15 @@
   ensure consistency.
 */
 
+import AddNewCar from "../modules/add-new-car/AddNewCar";
+import CarDetails from "../modules/car-details/CarDetails";
+
 export default {
   root: 'RootNavigation',
   home: 'Home',
   carLibrary: 'CarLibrary',
+  CarDetails:'CarDetails',
   services: 'Services',
   profile: 'Profile',
+  AddNewCar:'AddNewCar'
 };

@@ -4,14 +4,11 @@ import { ActivityLoader, AppText } from '../../components';
 import useHomeScreen from './useHomeScreen';
 
 const HomeScreen = () => {
-  const { loading, cars, error } = useHomeScreen();
+  ///const { loading, cars, error } = useHomeScreen();
   return (
-    <React.Fragment>
-      <ActivityLoader isVisible={loading} />
-      <View>
-        <AppText>HomeScreen</AppText>
-      </View>
-    </React.Fragment>
+    <View>
+      <AppText>dfgnvdfjlgn</AppText>
+    </View>
   );
 };
 

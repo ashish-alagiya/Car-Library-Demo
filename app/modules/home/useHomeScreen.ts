@@ -4,20 +4,20 @@ import { AppDispatch, RootState } from '../../redux/Store';
 import { fetchCars } from '../../redux';
 
 const useHomeScreen = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const { cars, loading, error } = useSelector(
-    (state: RootState) => state.carsList,
-  );
+//   const dispatch = useDispatch<AppDispatch>();
+//   const { cars, loading, error } = useSelector(
+//     (state: RootState) => state.carsList,
+//   );
+// console.log('cars@@@', JSON.stringify(cars))
+//   useEffect(() => {
+//     dispatch(fetchCars());
+//   }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(fetchCars());
-  }, [dispatch]);
-
-  return {
-    loading,
-    cars,
-    error,
-  };
+//   return {
+//     loading,
+//     cars,
+//     error,
+//   };
 };
 
 export default useHomeScreen;
