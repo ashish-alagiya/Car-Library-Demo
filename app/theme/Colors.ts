@@ -11,7 +11,11 @@ type ColorType =
   | 'background'
   | 'manualText'
   | 'automaticText'
-  | 'lightPink';
+  | 'lightPink'
+  | 'lightGray'
+  | 'darkGray'
+  | 'gray'
+  | 'error';
 
 // This object provides a centralized way to manage and reference color values throughout the application, ensuring consistency in color usage.
 // Color code should be Hex values.
@@ -28,4 +32,8 @@ export const Colors: Record<ColorType, string> = {
   automaticText: '#997C4C',
   background: '#FFF5EE',
   lightPink: '#9B72D22A',
+  lightGray: '#F5F5F5',
+  darkGray: '#757575',
+  gray: '#9E9E9E',
+  error: '#DF3145',
 };

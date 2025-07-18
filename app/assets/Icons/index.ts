@@ -15,4 +15,5 @@ export default {
   deleteIcon: require('./delete.png'),
   sortingUpIcon: require('./sortingUp.png'),
   sortingDownIcon: require('./sortingDown.png'),
+  crossIcon: require('./cross.png'),
 };
