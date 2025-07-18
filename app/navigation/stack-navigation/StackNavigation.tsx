@@ -7,7 +7,6 @@ import {
 
 //! Below Imports Are Visualization of Custom Components UI */
 import TabNavigation from '../tab-navigation/TabNavigation';
-import { SafeAreaContainer } from '../../components';
 import CarDetails from '../../modules/car-details/CarDetails';
 import AddNewCar from '../../modules/add-new-car/AddNewCar';
 
@@ -32,9 +31,7 @@ export const AppStack = () => {
 
 const RootStack = () => {
   return (
-    <SafeAreaContainer>
       <AppStack />
-    </SafeAreaContainer>
   );
 };
 

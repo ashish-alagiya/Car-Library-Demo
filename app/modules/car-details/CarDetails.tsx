@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  FlatList,
 } from 'react-native';
 import { useCarDetails } from './useCarDetails';
 import { styles } from './CarDetailsStyle';
@@ -13,8 +14,22 @@ import { ActivityLoader, PopUpModal } from '../../components';
 import { Icons } from '../../assets';
 
 const CarDetails: React.FC = () => {
-  const { car, loading, onDeletePress, showDeleteModal, navigation } =
-    useCarDetails();
+  const {
+    car,
+    loading,
+    onDeletePress,
+    showDeleteModal,
+    navigation,
+    onDeleteConfirm,
+  } = useCarDetails();
+
+  const RenderItem = ({ item }: { item: string }) => {
+    return (
+      <View style={styles.specificationBox}>
+        <Text style={styles.text}>{item}</Text>
+      </View>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -51,16 +66,11 @@ const CarDetails: React.FC = () => {
 
         <View style={styles.devider} />
         <Text style={styles.sectionTitle}>SPECIFICATIONS</Text>
-        <View style={styles.specificationView}>
-          {car?.tags.map(item => {
-            return (
-              <View style={styles.specificationBox}>
-                <Text style={styles.text}>{item}</Text>
-              </View>
-            );
-          })}
-        </View>
-
+        <FlatList<string>
+          data={car?.tags ?? []}
+          numColumns={3}
+          renderItem={RenderItem}
+        />
         <Text style={styles.lastUpdated}>
           Last updated: {moment(car?.createdAt).format('MMM DD, YYYY')}
         </Text>
@@ -69,7 +79,7 @@ const CarDetails: React.FC = () => {
         visible={showDeleteModal}
         carName={car?.name ?? ''}
         onCancel={onDeletePress}
-        onDelete={onDeletePress}
+        onDelete={onDeleteConfirm}
       />
     </View>
   );

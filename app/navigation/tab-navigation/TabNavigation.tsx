@@ -22,7 +22,6 @@ const getTabBarOptions = (
   label: string,
 ): BottomTabNavigationOptions => {
   const tabBarOptions: BottomTabNavigationOptions = {
-    // eslint-disable-next-line react/no-unstable-nested-components
     tabBarIcon: ({ focused }) => (
       <CustomTabIcon focused={focused} label={label} icon={icon} />
     ),

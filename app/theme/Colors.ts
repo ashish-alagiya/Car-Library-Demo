@@ -6,6 +6,7 @@ type ColorType =
   | 'primary'
   | 'success'
   | 'primary100'
+  | 'primary200'
   | 'manual'
   | 'automatic'
   | 'background'
@@ -29,6 +30,7 @@ export const Colors: Record<ColorType, string> = {
   primary: '#00909A',
   success: '#54AB6A',
   primary100: '#9B72D2',
+  primary200: '#e8d9fdff',
   manual: '#D6F5E3',
   manualText: '#10A024',
   automatic: '#FFE7CB',

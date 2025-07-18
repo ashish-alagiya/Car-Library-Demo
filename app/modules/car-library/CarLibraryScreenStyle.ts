@@ -1,6 +1,6 @@
 // Define styles for the login screen component.
 
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import {
   Colors,
   horizontalScale,
@@ -12,6 +12,8 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background,
+    paddingTop:
+      Platform.OS === 'android' ? verticalScale(50) : verticalScale(70),
   },
   headerContainer: {
     flexDirection: 'row',

@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import {
   Colors,
   horizontalScale,
@@ -11,6 +11,8 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background,
+    paddingTop:
+      Platform.OS === 'android' ? verticalScale(50) : verticalScale(70),
   },
   scrollContent: {
     paddingHorizontal: horizontalScale(24),
@@ -18,7 +20,14 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: moderateScale(24),
     fontFamily: nunito.Bold,
-    textAlign: 'center',
+  },
+  headerView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  backArrow: {
+    height: verticalScale(30),
+    width: verticalScale(30),
   },
   inputGroup: {
     marginBottom: verticalScale(8),
@@ -36,9 +45,9 @@ export const styles = StyleSheet.create({
     marginBottom: 0,
   },
   descriptionContainer: {
-    height: 150, 
+    height: 150,
     padding: 10,
-    backgroundColor: Colors.white, 
+    backgroundColor: Colors.white,
     borderRadius: 8,
   },
 
@@ -89,7 +98,7 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     fontSize: 16,
     fontFamily: nunito.SemiBold,
-    color: Colors.darkGray
+    color: Colors.darkGray,
   },
 
   selectedTextStyle: {
@@ -138,7 +147,7 @@ export const styles = StyleSheet.create({
   slectedOptionsContainer: {
     borderWidth: 0,
     borderRadius: 6,
-    backgroundColor: Colors.background,
+    backgroundColor: Colors.primary200,
     paddingHorizontal: horizontalScale(15),
   },
   selectedOptionText: {

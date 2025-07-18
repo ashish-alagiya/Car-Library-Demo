@@ -31,18 +31,12 @@ export const useAddNewCar = () => {
 
   useEffect(() => {
     const fetchCarTypes = async () => {
-      try {
-        const types = await getCarTypes();
-        const formatted = types.map(type => ({
-          label: type,
-          value: type,
-        }));
-        console.log(types);
-
-        setCarTypeDropdownData(formatted);
-      } catch (error) {
-        console.error('Failed to fetch car types:', error);
-      }
+      const types = await getCarTypes();
+      const formatted = types.map(type => ({
+        label: type,
+        value: type,
+      }));
+      setCarTypeDropdownData(formatted);
     };
 
     fetchCarTypes();
@@ -50,17 +44,13 @@ export const useAddNewCar = () => {
 
   useEffect(() => {
     const fetchCarTags = async () => {
-      try {
-        const tags = await getCarTags();
-        const response = tags.map(tag => ({
-          label: tag,
-          value: tag,
-        }));
+      const tags = await getCarTags();
+      const response = tags.map(tag => ({
+        label: tag,
+        value: tag,
+      }));
 
-        setcarTagsDropdownData(response);
-      } catch (error) {
-        console.error('Failed to fetch car types:', error);
-      }
+      setcarTagsDropdownData(response);
     };
 
     fetchCarTags();
@@ -116,6 +106,8 @@ export const useAddNewCar = () => {
     }
   };
 
+  const onBackPress = () => navigation.goBack();
+
   return {
     carName,
     setCarName,
@@ -149,5 +141,6 @@ export const useAddNewCar = () => {
     selectedCarTags,
     setSelectedCarTags,
     isLoading,
+    onBackPress,
   };
 };

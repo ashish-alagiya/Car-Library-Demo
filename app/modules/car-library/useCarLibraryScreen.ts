@@ -27,19 +27,15 @@ const useCarLibrary = () => {
   ) as { cars: CarType[]; loading: boolean; error: string | null };
 
   const fetchCarsWithFilters = useCallback(async () => {
-    try {
-      const params: Record<string, string> = {};
-      if (search) params['search'] = search;
-      if (sortBy) params['sortBy'] = sortBy;
-      if (sortOrder) params['sortOrder'] = sortOrder;
-      if (carType) params['carType'] = carType.toLowerCase();
-      if (tags) params['tags'] = tags;
+    const params: Record<string, string> = {};
+    if (search) params['search'] = search;
+    if (sortBy) params['sortBy'] = sortBy;
+    if (sortOrder) params['sortOrder'] = sortOrder;
+    if (carType) params['carType'] = carType.toLowerCase();
+    if (tags) params['tags'] = tags;
 
-      const response = await getFilteredCars(params);
-      dispatch(setFilteredCars(response));
-    } catch (error) {
-      console.error('Error fetching filtered cars:', error);
-    }
+    const response = await getFilteredCars(params);
+    dispatch(setFilteredCars(response));
   }, [search, sortBy, sortOrder, carType, tags, dispatch]);
 
   useEffect(() => {
@@ -89,7 +85,6 @@ const useCarLibrary = () => {
   };
 
   const handleSortSelect = (option: { sortBy: string; sortOrder: string }) => {
-    console.log('Sort option selected:', option);
     setSortBy(option.sortBy);
     setSortOrder(option.sortOrder);
   };

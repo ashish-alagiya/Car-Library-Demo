@@ -1,13 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Car, CreateCarPayload, UpdateCarPayload } from '../../types';
-import { createCar, getCarById, updateCar } from '../../api/CarApis';
+import { Car, CreateCarPayload } from '../../types';
+import { createCar, getCarById } from '../../api/CarApis';
 
 interface CarDetailState {
   car: Car | null;
   isLoading: boolean;
   error: string | null;
   isCreating: boolean;
-  isUpdating: boolean;
 }
 
 const initialState: CarDetailState = {
@@ -15,7 +14,6 @@ const initialState: CarDetailState = {
   isLoading: false,
   error: null,
   isCreating: false,
-  isUpdating: false,
 };
 
 // Fetch Car Detail
@@ -36,18 +34,6 @@ export const createNewCar = createAsyncThunk<Car, CreateCarPayload>(
   async (payload, { rejectWithValue }) => {
     try {
       return await createCar(payload);
-    } catch (err: any) {
-      return rejectWithValue(err.message);
-    }
-  },
-);
-
-// Update Car
-export const updateExistingCar = createAsyncThunk<Car, UpdateCarPayload>(
-  'carDetail/updateCar',
-  async ({ id, ...data }, { rejectWithValue }) => {
-    try {
-      return await updateCar(id, data);
     } catch (err: any) {
       return rejectWithValue(err.message);
     }
@@ -89,19 +75,6 @@ const carDetailSlice = createSlice({
       })
       .addCase(createNewCar.rejected, (state, action) => {
         state.isCreating = false;
-        state.error = action.payload as string;
-      })
-      // Update car
-      .addCase(updateExistingCar.pending, state => {
-        state.isUpdating = true;
-        state.error = null;
-      })
-      .addCase(updateExistingCar.fulfilled, (state, action) => {
-        state.isUpdating = false;
-        state.car = action.payload;
-      })
-      .addCase(updateExistingCar.rejected, (state, action) => {
-        state.isUpdating = false;
         state.error = action.payload as string;
       });
   },

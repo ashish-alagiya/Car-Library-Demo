@@ -23,4 +23,5 @@ export default {
   radio_marked:require('./radio_marked.png'),
   cross:require('./cross.png'),
   crossIcon: require('./cross.png'),
+  backArrow: require('./backArrow.png'),
 };

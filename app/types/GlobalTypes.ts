@@ -42,7 +42,6 @@ export type CreateCarPayload = {
   tags: string[];
 };
 
-export type UpdateCarPayload = Partial<CreateCarPayload> & { id: number };
 export interface Props {
   value: string;
   onChange: (text: string) => void;
@@ -62,10 +61,10 @@ export interface Car {
   fuelType?: string;
   mileage?: string;
   lastUpdated?: string;
-  createdAt:string
-  imageUrl:string
-  carType:string
-  tags:string[]
+  createdAt: string;
+  imageUrl: string;
+  carType: string;
+  tags: string[];
 }
 export interface CarDetailsProps {
   route: { params?: { carId?: string } };

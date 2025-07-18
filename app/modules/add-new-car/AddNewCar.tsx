@@ -2,11 +2,11 @@ import React from 'react';
 import {
   View,
   Text,
-  SafeAreaView,
   ScrollView,
   Image,
   ActivityIndicator,
   TextInput,
+  TouchableOpacity,
 } from 'react-native';
 import { InputField } from '../../components/input_container/Input';
 import CommonButton from '../../components/common-button/CommonButton';
@@ -16,7 +16,7 @@ import { Icons } from '../../assets';
 import { Colors } from '../../theme';
 import { Dropdown, MultiSelect } from 'react-native-element-dropdown';
 
-const AddNewCar = () => {
+const AddNewCar: React.FC = () => {
   const {
     carName,
     setCarName,
@@ -35,12 +35,19 @@ const AddNewCar = () => {
     carTagsDropdownData,
     showErrors,
     isLoading,
+    onBackPress,
   } = useAddNewCar();
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <Text style={styles.title}>Add Car</Text>
+        <View style={styles.headerView}>
+          <TouchableOpacity onPress={onBackPress}>
+            <Image source={Icons.backArrow} style={styles.backArrow} />
+          </TouchableOpacity>
+          <Text style={styles.title}>Add Car</Text>
+          <View />
+        </View>
 
         <View style={styles.inputGroup}>
           <Text style={styles.label}>
@@ -196,7 +203,7 @@ const AddNewCar = () => {
           )}
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 

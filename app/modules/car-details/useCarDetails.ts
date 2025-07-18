@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Car, RootStackParamList } from '../../types';
-import { getCarDetails } from '../../api/CarApis';
+import { deleteCar, getCarDetails } from '../../api/CarApis';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 
 type CarDetailsRouteProp = RouteProp<RootStackParamList, 'CarDetails'>;
@@ -24,7 +24,6 @@ export const useCarDetails = () => {
           setCar(null);
         }
       } catch (err) {
-        console.error('Error fetching car details:', err);
         setCar(null);
       } finally {
         setLoading(false);
@@ -40,5 +39,14 @@ export const useCarDetails = () => {
     setShowDeleteModal(!showDeleteModal);
   };
 
-  return { car, loading, onDeletePress, showDeleteModal, navigation };
+  const onDeleteConfirm = async() => {
+    const res = await deleteCar(Number(params.carId))
+    if (res) {
+      onDeletePress()
+      navigation.goBack()
+    }
+  }
+
+
+  return { car, loading, onDeletePress, showDeleteModal, navigation , onDeleteConfirm};
 };
