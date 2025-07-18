@@ -16,6 +16,8 @@ type ColorType =
   | 'gray'
   | 'lightGray'
   | 'darkGray'
+  | 'blue'
+  | 'red'
   | 'error';
 
 // This object provides a centralized way to manage and reference color values throughout the application, ensuring consistency in color usage.
@@ -37,5 +39,7 @@ export const Colors: Record<ColorType, string> = {
   gray: '#666666',
   lightGray: '#F5F5F5',
   darkGray: '#757575',
-  error: '#fd0000ff',
+  error: '#DF3145',
+  blue: '#2196F3',
+  red: '#f71414ff',
 };

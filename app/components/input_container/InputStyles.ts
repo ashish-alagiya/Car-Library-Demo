@@ -31,10 +31,10 @@ export const styles = StyleSheet.create({
   },
   errorBorder: {
     borderWidth: 1,
-    borderColor: Colors.error,
+    borderColor: Colors.red,
   },
   errorText: {
-    color: Colors.error,
+    color: Colors.red,
     fontSize: moderateScale(12),
   },
   errorContainer: {

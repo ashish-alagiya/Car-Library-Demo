@@ -4,7 +4,6 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  SafeAreaView,
   ScrollView,
 } from 'react-native';
 import { useCarDetails } from './useCarDetails';
@@ -18,7 +17,7 @@ const CarDetails: React.FC = () => {
     useCarDetails();
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.headerView}>
         <TouchableOpacity onPress={onDeletePress} style={styles.deleteIconView}>
           <Image
@@ -72,7 +71,7 @@ const CarDetails: React.FC = () => {
         onCancel={onDeletePress}
         onDelete={onDeletePress}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 

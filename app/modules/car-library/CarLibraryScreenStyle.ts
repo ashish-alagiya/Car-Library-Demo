@@ -1,6 +1,6 @@
 // Define styles for the login screen component.
 
-import { StyleSheet, ViewStyle } from 'react-native';
+import { StyleSheet } from 'react-native';
 import {
   Colors,
   horizontalScale,
@@ -107,18 +107,18 @@ export const styles = StyleSheet.create({
   },
   errorText: {
     fontSize: 16,
-    color: 'red',
+    color: Colors.red,
     textAlign: 'center',
     marginBottom: 20,
   },
   retryButton: {
-    backgroundColor: '#2196F3',
+    backgroundColor: Colors.blue,
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 5,
   },
   retryButtonText: {
-    color: '#FFFFFF',
+    color: Colors.white,
     fontSize: 16,
   },
   newCarBtnContainer: {

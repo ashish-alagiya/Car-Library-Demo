@@ -28,7 +28,7 @@ import {
 } from '../../components';
 import EmptyState from '../../components/empty-state/EmptyState';
 
-const CarLibraryScreen = () => {
+const CarLibraryScreen: React.FC = () => {
   const {
     loading,
     error,

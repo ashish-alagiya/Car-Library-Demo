@@ -30,14 +30,15 @@ export const styles = StyleSheet.create({
     fontFamily: nunito.Regular,
   },
   required: {
-    color: Colors.error,
+    color: Colors.red,
   },
   input: {
     marginBottom: 0,
   },
   descriptionContainer: {
-    height: 150,
+    height: 150, 
     padding: 10,
+    backgroundColor: Colors.white, 
     borderRadius: 8,
   },
 
@@ -88,6 +89,7 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     fontSize: 16,
     fontFamily: nunito.SemiBold,
+    color: Colors.darkGray
   },
 
   selectedTextStyle: {
@@ -96,8 +98,8 @@ export const styles = StyleSheet.create({
   },
 
   errorText: {
-    color: Colors.error,
-    fontSize: moderateScale(12),
+    color: Colors.red,
+    fontSize: moderateScale(10),
     marginTop: 4,
     fontFamily: nunito.Regular,
   },

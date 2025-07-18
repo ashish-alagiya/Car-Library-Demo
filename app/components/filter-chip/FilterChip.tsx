@@ -29,22 +29,22 @@ const FilterChip: React.FC<FilterChipProps> = ({
 const styles = StyleSheet.create({
   chip: {
     borderWidth: 1,
-    borderColor: '#E0E0E0',
+    borderColor: Colors.bordercolor,
     borderRadius: 24,
     paddingVertical: 8,
     paddingHorizontal: 16,
     margin: 6,
-    backgroundColor: '#F9F9F9',
+    backgroundColor: Colors.white,
   },
   chipSelected: {
     backgroundColor: Colors.lightPink,
   },
   text: {
     fontSize: 14,
-    color: '#333',
+    color: Colors.black,
   },
   textSelected: {
-    color: '#9B72D2',
+    color: Colors.primary100,
     fontWeight: 'bold',
   },
 });
