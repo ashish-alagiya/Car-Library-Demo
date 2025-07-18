@@ -6,3 +6,4 @@ export { default as FilterBottomSheet } from './filter-bottom-sheet/FilterBottom
 export { default as FilterChip } from './filter-chip/FilterChip';
 export { default as PopUpModal } from './popup-modal/PopUpModal';
 export { default as SortBottomSheet } from './sorting-bottom-sheet/SortBottomSheet';
+export { default as EmptyState } from './empty-state/EmptyState';

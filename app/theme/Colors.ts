@@ -13,7 +13,10 @@ type ColorType =
   | 'automaticText'
   | 'lightPink'
   | 'bordercolor'
-  | 'gray';
+  | 'gray'
+  | 'lightGray'
+  | 'darkGray'
+  | 'error';
 
 // This object provides a centralized way to manage and reference color values throughout the application, ensuring consistency in color usage.
 // Color code should be Hex values.
@@ -32,4 +35,7 @@ export const Colors: Record<ColorType, string> = {
   lightPink: '#9B72D22A',
   bordercolor: '#cbcbcbff',
   gray: '#666666',
+  lightGray: '#F5F5F5',
+  darkGray: '#757575',
+  error: '#DF3145',
 };

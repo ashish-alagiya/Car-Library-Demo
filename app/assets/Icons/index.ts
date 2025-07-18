@@ -21,5 +21,6 @@ export default {
   checkbox_marked:require('./checkbox_marked.png'),
   radio_unmarked:require('./radio_unmarked.png'),
   radio_marked:require('./radio_marked.png'),
-  cross:require('./Cross.png')
+  cross:require('./Cross.png'),
+  crossIcon: require('./cross.png'),
 };
